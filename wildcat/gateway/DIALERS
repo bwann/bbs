@@ -1,0 +1,12 @@
+# The format of the DIALERS file is:
+#
+#Dialer-name   device  speed      dialer-script
+#
+MODEM14400    Default  19200    "" ATZ OK ATDT\T CONNECT \m\c  
+#
+# The above line is an example
+#
+# US Robotics Courier dual stanard .MDM profile
+USRDS  Default 19200 "" ATH0 OK ATZE1V1 OK ATDT\T CONNECT \m\c
+# Same modem, but using FOSSIL driver
+USRDSF Default 19200 "" ATH0 OK ATZE1V1 OK ATDT\T CONNECT \m\c

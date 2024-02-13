@@ -1,0 +1,10 @@
+# Note this is an example of the script file for logging into HOLONET with
+# HOLODEMO access.
+# The \L and \P represent the login name and password from the SYSTEMS file.
+# The SYSTEMS file actually contains the name (serial #) and password
+# from your HOLODEMO kit
+
+toholonet  "" \p "" \pdemouu ember \L word \P erminal uucp
+
+# wann.net UUCP host, Linux login prompt (mgetty)
+towannnet login: \L Password: \P

@@ -1,0 +1,11 @@
+# The <SERIAL_NUMBER> and <PASSWORD> need to be entered exactly as shown
+# on the back of the HoloDemo brochure you received in your package.  Case
+# is important.  Be sure to not transpose lower case with upper case 
+# characters.  Be sure to NOT include the <>'s.
+
+# Example entry for old Holonet
+# holonet Any g modem14400 toholonet 15107041058 <SERIAL_NUMBER> <PASSWORD>
+
+# wann.net UUCP host on internal phone extension 104,
+# using US Robotics+FOSSIL dialer
+wannnet Any g usrdsf towannnet 104 Utuxedocat passwordpassword
