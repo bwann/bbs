@@ -1,0 +1,6 @@
+@ECHO OFF
+
+REM Castle Siege door
+
+CD \DOORS\CASTLE
+RUNCAS.BAT %WCNODEID%
