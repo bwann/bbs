@@ -2,20 +2,32 @@
 
 PATH=C:\PKWARE;C:\ARJ;C:\LHA;c:\windows\system32
 
+REM Node 3 - mode, Netfoss FOSSIL real COM7
+
+REM physical modem mapping notes, used when netfoss not used
 REM COM 3 - WCPORTID=3, WCIRQID=4, WCBASEID=$3E8
 REM COM 4 - WCPORTID=4, WCIRQID=3, WCBASEID=$2E8
 
 SET WCNODEID=3
+
+REM Tradewars
 SET TWNODE=3
+
+REM Netfoss node 3, COM7
 SET NFNODE=3
 SET NFPORT=7
+
+REM not used normally
 SET WCPORTID=3
 SET WCIRQID=4
 SET WCBASEID=$3E8
+
 SET WCMDM=USRDSF
 
 c:\netfoss\netfoss /N%WCNODEID% /C%NFPORT%
 
+
+REM mmmm copypasta code, have some!
 
 :RELOAD
 C:

@@ -43,3 +43,17 @@ and sets the remote IP address as the caller Id number that gets logged.
 Very quick and dirty way to make a backup zip file of all BBS directories
 
 
+### batch/
+
+Some batch files from C:\WILDCAT\BATCh. Mostly for loading doors,
+some Wildcat! hook scripts, some utility batch files.
+
+### gateway/
+
+Files for configuring UUCP mail/newsgroup transfers using FX UUCICO,
+wcGate
+
+### wcpro/
+
+Some report and command macros for cleaning up the message database,
+processing reports.

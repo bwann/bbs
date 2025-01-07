@@ -2,8 +2,9 @@
 
 PATH=c:\windows\system32;C:\PKWARE;C:\ARJ;C:\LHA;c:\windows\system32
 
-REM Node 4, X.25 - Null-modem direct serial connection to Cisco router to
-REM handle inbound X.25 sessions or reverse telnet from router
+REM Node 4, inbound X.25 - Direct serial connection on COM5 using null-modem
+REM cable to Cisco router to handle inbound X.25 sessions or reverse
+REM telnet from router
 
 REM #old# COM 5 - Lower built-in port
 
