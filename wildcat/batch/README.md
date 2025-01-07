@@ -19,6 +19,11 @@ A few noteworthy mentions:
 - ALLFILES.BAT - every morning build a downloadable list of every file
   on the board
 
+- PACK.BAT - Weekly run of wcPACK to purge deleted/killed messages
+
+- MSGPURGE.BAT - Deletes old test email and newsgroup posts, registration
+  nag messages
+
 - FILEDESC.BAT - Imports FILE_ID.DIZ from .zip files upon upload. Only
   supports ZIP files, really needs to be expanded to cover ARJ, LHZ, Z,
   GZIP, XZ, etc etc etc
