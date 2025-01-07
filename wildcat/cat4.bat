@@ -1,26 +1,40 @@
 @echo off
 
-PATH=C:\ARJ;C:\LHA;c:\windows\system32
+PATH=c:\windows\system32;C:\PKWARE;C:\ARJ;C:\LHA;c:\windows\system32
 
-REM COM 5 - Lower built-in port  irq ?? baseid ??
+REM Node 4, X.25 - Null-modem direct serial connection to Cisco router to
+REM handle inbound X.25 sessions or reverse telnet from router
+
+REM #old# COM 5 - Lower built-in port
 
 SET WCNODEID=4
+
+REM Tradewars
 SET TWNODE=4
+
+REM Netfoss
 SET NFNODE=4
 SET NFPORT=5
+
 rem SET WCPORTID=4
 rem SET WCIRQID=3
 rem SET WCBASEID=$2E8
 rem SET WCMDM=CARD288F
 rem SET WCMDM=USRDSF
+
+REM Custom wcModem MDM file that uses FOSSIL, Ring Result, 38.4k DTE,
+REM and janky RINGRING verbal code sent from the Cisco
+
 SET WCMDM=X25RING
 
+REM lock serial port speed at 38.4k
 c:\netfoss\netfoss /N%WCNODEID% /C%NFPORT% /L38400
 
 :RELOAD
 C:
 CD \WILDCAT
 REM WILDCAT /B 115200MNP
+REM no options to wildcat
 WILDCAT
 IF ERRORLEVEL 4 GOTO CHAT
 IF ERRORLEVEL 3 GOTO MAIL
