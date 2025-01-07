@@ -1,0 +1,64 @@
+@echo off
+
+PATH=c:\windows\system32;C:\PKWARE;C:\ARJ;C:\LHA;c:\windows\system32
+
+REM Node 1 - modem, Netfoss FOSSIL real COM4
+
+SET WCNODEID=1
+SET WCPORTID=2
+
+REM Tradewars
+SET TWNODE=1
+
+REM Netfoss node 1, COM4
+SET NFNODE=1
+SET NFPORT=4
+
+rem #old# SET WCIRQID=4
+rem #old# SET WCBASEID=$02F8
+
+REM US Robotics MDM profile w/ FOSSIL enabled
+SET WCMDM=USRDSF
+
+REM Load FOSSIL driver in COM port mode
+C:\NETFOSS\NETFOSS /N%WCNODEID% /C%NFPORT%
+
+
+REM mmmm copypasta code, have some!
+
+:RELOAD
+C:
+CD \WILDCAT
+WILDCAT /C
+IF ERRORLEVEL 4 GOTO CHAT
+IF ERRORLEVEL 3 GOTO MAIL
+IF ERRORLEVEL 2 GOTO DOOR
+IF ERRORLEVEL 1 GOTO RELOAD
+GOTO END
+:MAIL
+CD \WILDCAT\WCWORK\NODE%WCNODEID%
+\WILDCAT\WCMAIL
+GOTO RELOAD
+:CHAT
+CD \WILDCAT\WCWORK\NODE%WCNODEID%
+\WILDCAT\WCCHAT
+GOTO RELOAD
+:DOOR
+IF EXIST C:\WILDCAT\WCWORK\NODE%WCNODEID%\EVENT.BAT GOTO EVENT
+CD \WILDCAT\WCWORK\NODE%WCNODEID%
+rem Note the "CALL" statement is used here no "CAT.BAT" is needed at the
+rem end of your door batch files
+CALL DOOR.BAT
+GOTO RELOAD
+:EVENT
+CD \WILDCAT\WCWORK\NODE%WCNODEID%
+rem Note the "CALL" statement is used here no "CAT.BAT" is needed at the
+rem end of your event batch files
+CALL EVENT.BAT
+GOTO RELOAD
+:END
+
+REM Unload FOSSIL driver, release COM port
+C:\NETFOSS\NETFOSS /U
+
+@echo on
