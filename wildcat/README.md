@@ -3,8 +3,17 @@
 ### catX.bat
 
 These are started individually to start each node. A variety of
-enviornment variables are set for Wildcat, Netfoss, and some games such
+environment variables are set for Wildcat, Netfoss, and some games such
 as Tradewars to handle multiplayer functions.
+
+I just start these up on with shortcuts in the Startup program group.
+
+- Nodes 1, 2, 3 - real modems to handle dial-up callers
+- Node 4 - direct serial connection to a Cisco router acting as a X.25 PAD
+for visitors from Telebahn X.25 network
+- Node 5-9 - inbound telnet connections
+- Node 10 - local sysop node
+- Node 0 doesn't work here since we're not actually running SHARE.EXE
 
 There's a ridiculous amount of copypasta code in here that's duplicated
 between all the CATX.BAT files that could just be refactored into another
