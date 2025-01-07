@@ -9,3 +9,4 @@ These aren't called directly, they're usually called by batch files in
 
 - REG.PRO - Delete Postmstr nag messages matched by REG.PMM 
 
+- CRONDEL.PRO - Delete old health check messages older than 7 days
