@@ -1,9 +1,9 @@
 # TuxedoCat Lounge BBS
 
-<img width="766" alt="tuxedocat-lounge-2024" src="https://github.com/bwann/bbs/assets/916932/b01c2798-a9b8-43c8-aad9-34dc7fb4b4f6">
+<img width="800" alt="tuxedocat-lounge-2025" src="https://github.com/user-attachments/assets/ef0993de-0821-45df-8d40-8f27b53a0055" />
 
-Some files backing my bulletin board system running Wildcat! 4.20 ML10
-on MS-DOS, TuxedoCat Lounge BBS
+Some files backing my vintage bulletin board system running Wildcat! 4.20 Multiline 10
+on MS-DOS, TuxedoCat Lounge BBS  http://www.tuxedocatbbs.com/
 
 ### Wildcat! batch files
 
