@@ -25,7 +25,7 @@ the modem on the real COM port. I did this for a few reasons:
 - Wildcat is a MS-DOS program and expects COM ports COM1-4 at legacy ISA
   IRQ and I/O addresses
 - Windows likes to completely make up its COM port numbering, it may
-  decide to enumerate things as COM1, 2, 5, 7
+  decide to enumerate things as COM1, 2, 5, 7[^1]
 - Due to Plug-n-Play, COM ports may not be at legacy IRQ and I/O addresses
 
 Thus Netfoss interacts with Windows and provides a standard FOSSIL interface
@@ -69,3 +69,5 @@ wcGate
 
 Some report and command macros for cleaning up the message database,
 processing reports.
+
+[^1]: You can re-number your COM ports in Windows, I did it following https://blogs.gwu.edu/ecelabs/2020/06/25/resetting-windows-com-ports/
