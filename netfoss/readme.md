@@ -24,6 +24,13 @@ For more information on how NetFoss can be used, refer to the NetFoss user guide
 their website. Comb through all of the examples, even those not related to Wildcat!
 for ideas on how the software is used.
 
+FYI "Command Prompt" in Windows since NT/2000/XP is not really MS-DOS. It is an instance of
+the NT Virtual DOS Machine (NTVDM) that is built into Windows and emulates nearly all DOS APIs.
+As far as running programs are concerned, it thinks it's running on MS-DOS.
+Up until Windows 10 or so it also supported running 16-bit MS-DOS applications, which we
+have here. Think of NetFoss as replacing some of these DOS API calls. When Wildcat makes a
+INT 14h call to talk to a modem, NetFoss handles that request.
+
 ### COM port mode for inbound modem callers
 In COM port mode: NetFoss acts as a traditional FOSSIL driver
 interacting with the real modems on real serial ports through
@@ -32,8 +39,9 @@ legacy IRQ and I/O base addresses, this lets Wildcat! utilize modems
 that Windows PNP has configured at higher COM numbers, weird IRQ
 numbers and I/O addresses.
 
-This is all handled by running NETFOSS in the batch files that start
-nodes 1-4 which have my modems connected to them.
+This is all handled by running NETFOSS in the batch files (CATX.BAT) that start
+nodes 1-4 which have my modems connected to them. See examples in the /wildcat/batch
+directory.
 
 tl;dr: start NETFOSS.EXE with a node number and real COM port, run WILDCAT.EXE, then
 NETFOSS.EXE /U to unload the driver
