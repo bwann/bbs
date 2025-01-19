@@ -10,22 +10,31 @@ REM Set up an event to run this every night
 
 REM C:\wildcat\allfiles is a temporary work directory
 
+IF NOT EXIST \wildcat\allfiles MKDIR \wildcat\allfiles
+
 del \wildcat\allfiles\allfiles.zip
 del \wildcat\allfiles\allfiles.txt
+
+REM wcPRO .PFM contains a filter to match the new files,
+REM and the .PRO contains the output path
+
 cd \wildcat
-wcpro wcpro\allfiles
+wcpro wcpro\allfiles.pro
 
 cd \wildcat\allfiles
-IF EXIST allfiles.txt (
-  C:\PKWARE\PKZIP allfiles.zip allfiles.txt
-  cd \wildcat
+IF NOT EXIST allfiles.txt GOTO :NOFILE
 
-  REM run wcFile with a command file to tell it how to upload
-  REM the new allfiles lists to file areas.
-  wcfile /L:allfiles.wcf
-
-) ELSE (
-  ECHO couldn't find an allfiles.txt
-)
-
+C:\PKWARE\PKZIP allfiles.zip allfiles.txt
 cd \wildcat
+
+REM run wcFile with a command file to tell it how to upload
+REM the new allfiles lists to file areas.
+wcfile /L:allfiles.wcf
+
+GOTO :END
+
+:NOFILE
+ECHO couldn't find an allfiles.txt to process
+EXIT /B 1
+
+:END
