@@ -1,3 +1,5 @@
+![wc4ansi](https://github.com/user-attachments/assets/02649d83-07c7-4313-86bb-d32d07e5fd09)
+
 # C:\WILDCAT files
 
 ### catX.bat
