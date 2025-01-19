@@ -3,8 +3,8 @@
 REM For STGEN-MC (Modified STGEN.EXE that calls USRSTAT) to display
 REM modem statistics from our modems to caller
 REM
-REM Needs ATS02=43 set on our modems so door can grab attention and send
-REM AT commands to get USR statistics
+REM Needs ATS02=43 and S14=0 set on our modems so door can grab attention
+REM (and not hang up) and send AT commands to get USR statistics
 
 REM Not supported if we're a telnet client
 IF %WCMDM%==TELNET GOTO :TELNET
@@ -28,4 +28,5 @@ REM STGEN-MC
 
 STGEN-MC %NFPORT% 0 %WCNODEID% 43 1 c:\doors\stgen\stgen.log /M3
 
+:TELNET
 :END

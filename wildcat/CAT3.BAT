@@ -1,8 +1,6 @@
 @echo off
 
-PATH=C:\PKWARE;C:\ARJ;C:\LHA;c:\windows\system32
-
-REM Node 3 - mode, Netfoss FOSSIL real COM7
+REM Node 3 - COM mode, Netfoss FOSSIL real COM7
 
 REM physical modem mapping notes, used when netfoss not used
 REM COM 3 - WCPORTID=3, WCIRQID=4, WCBASEID=$3E8
@@ -18,51 +16,15 @@ SET NFNODE=3
 SET NFPORT=7
 
 REM not used normally
-SET WCPORTID=3
-SET WCIRQID=4
-SET WCBASEID=$3E8
+REM SET WCPORTID=3
+REM SET WCIRQID=4
+REM SET WCBASEID=$3E8
 
 SET WCMDM=USRDSF
 
 c:\netfoss\netfoss /N%WCNODEID% /C%NFPORT%
 
-
-REM mmmm copypasta code, have some!
-
-:RELOAD
-C:
-CD \WILDCAT
-WILDCAT /C 
-IF ERRORLEVEL 4 GOTO CHAT
-IF ERRORLEVEL 3 GOTO MAIL
-IF ERRORLEVEL 2 GOTO DOOR
-IF ERRORLEVEL 1 GOTO RELOAD
-GOTO END
-:MAIL
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-\WILDCAT\WCMAIL
-GOTO RELOAD
-:CHAT
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-\WILDCAT\WCCHAT
-GOTO RELOAD
-:DOOR
-IF EXIST C:\WILDCAT\WCWORK\NODE%WCNODEID%\EVENT.BAT GOTO EVENT
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-rem Note the "CALL" statement is used here no "CAT.BAT" is needed at the
-rem end of your door batch files
-CALL DOOR.BAT
-GOTO RELOAD
-:EVENT
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-rem Note the "CALL" statement is used here no "CAT.BAT" is needed at the
-rem end of your event batch files
-CALL EVENT.BAT
-GOTO RELOAD
-:END
+CALL cmncat.bat
 
 c:\netfoss\netfoss /U
-
-@echo on
-
-
+echo This was WCNODEID %WCNODEID% NFPORT %NFPORT%

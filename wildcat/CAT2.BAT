@@ -1,53 +1,25 @@
 @echo off
 
-PATH=C:\PKWARE;C:\ARJ;C:\LHA;c:\windows\system32
+REM Node 2 - modem, Netfoss FOSSIL real COM6
 
 SET WCNODEID=2
+
+REM Tradewars
 SET TWNODE=2
+
+REM Netfoss node 2, COM6
 SET NFNODE=2
 SET NFPORT=6
-rem SET WCPORTID=1
-rem SET WCIRQID=4
-rem SET WCBASEID=$3F8
+
+REM US Robotics MDM profile w/ FOSSIL enabled
 SET WCMDM=USRDSF
 
+REM Load FOSSIL driver in COM port mode
 C:\NETFOSS\NETFOSS /N%WCNODEID% /C%NFPORT%
 
-:RELOAD
-C:
-CD \WILDCAT
-echo "starting wildcat on port %wcportid%"
-WILDCAT /C
-IF ERRORLEVEL 4 GOTO CHAT
-IF ERRORLEVEL 3 GOTO MAIL
-IF ERRORLEVEL 2 GOTO DOOR
-IF ERRORLEVEL 1 GOTO RELOAD
-GOTO END
-:MAIL
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-\WILDCAT\WCMAIL
-GOTO RELOAD
-:CHAT
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-\WILDCAT\WCCHAT
-GOTO RELOAD
-:DOOR
-IF EXIST C:\WILDCAT\WCWORK\NODE%WCNODEID%\EVENT.BAT GOTO EVENT
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-rem Note the "CALL" statement is used here no "CAT.BAT" is needed at the
-rem end of your door batch files
-CALL DOOR.BAT
-GOTO RELOAD
-:EVENT
-CD \WILDCAT\WCWORK\NODE%WCNODEID%
-rem Note the "CALL" statement is used here no "CAT.BAT" is needed at the
-rem end of your event batch files
-CALL EVENT.BAT
-GOTO RELOAD
-:END
-@echo on
+CALL cmncat.bat
 
 c:\netfoss\netfoss /U
 
-echo This is WCNODEID %WCNODEID% NFPORT %NFPORT%
+echo This was WCNODEID %WCNODEID% NFPORT %NFPORT%
 
