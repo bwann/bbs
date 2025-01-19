@@ -10,6 +10,8 @@ These are my configuration files for wcGate. The UUCP.BAT file is ran as a sched
 This process exports pending Internet e-mail and newsgroup posts, runs UUCICO to call a Linux system on the Internet with a modem, uploads outgoing messages, downloads incoming messages, and imports them into the BBS
 message database.
 
+A deep dive look into how all of this came about and how UUCP works is on my website at https://binaryfury.wann.net/2023/11/dial-up-uucp-to-get-email-to-a-vintage-dos-bbs/
+
 Full documentation for wcGate can be found at https://archive.org/details/wcGate, and other vintage information can be found in WCINET11.ZIP. MAKEGATE is the main program for configuring wcGate.
 
 * FXUUCP.CFG - The config file for FX UUCICO. Defines who we are (our site uucp name).
