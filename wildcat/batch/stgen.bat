@@ -25,13 +25,15 @@ cd \doors\stgen
 REM Detect if we're using a direct or fossil MDM profile
 IF %WCMDM%==USRDSF GOTO FOSSIL
 
-REM NFPORT is our NetFoss port number, write to stgen.log for debugging
-REM If we had Caller-id info we could pass it as the 2nd argument to
-REM STGEN-MC
+REM assume WCIRQID is set, die in a fire probably if not
 
 :SERIAL
 STGEN-MC %WCPORTID% %WCIRQID% %WCNODEID% 43 0 c:\doors\stgen\stgen.log /M3
 GOTO END
+
+REM NFPORT is our NetFoss port number, write to stgen.log for debugging
+REM If we had Caller-id info we could pass it as the 2nd argument to
+REM STGEN-MC
 
 :FOSSIL
 STGEN-MC %NFPORT% 0 %WCNODEID% 43 1 c:\doors\stgen\stgen.log /M3
