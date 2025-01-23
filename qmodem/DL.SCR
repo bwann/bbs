@@ -1,0 +1,241 @@
+;
+; Qmodem script for testing downloads
+;
+; 1. Dials a select entry in the phonebook (so we don't put the password
+;    in this script)
+; 2. Log in
+; 3. Download a single specified test script with specified protocol
+; 4. Say goodbye, forcefully disconnect if we have to
+; 5. In case of USR modems, grab ATI6, ATI11 info after call
+; 6. Exit Qmodem
+;
+; Init-strings used:
+; Cardinal 28.8k: ATE1V1&C1&D2&K3&Q5S95=3S11=50  
+; US Robotics Courier: ATX7&A3&B1&C1&D2&H1&K3S11=50
+; Zoom VFX V.32bis (Rockwell): AT&C1&D2&K3&Q5X4W1S95=63%E0  (AT&V for curr)
+;
+; This particular script depends on using a dialing directory entry at a
+; specific number. Its is intended for running Qmodem, calling, and returning
+; to DOS such as:  QMODEM /S=DL.SCR
+;
+; Should be suitable for use with Qmodem Pro or Qmodem 4.6 Test drive
+;
+; See QMODEMTD.DOC for scripting commands and documentation
+;
+
+; Global strings
+STRING DIALNUM DLPATH TESTFILE USERNAME PROTO SIZE
+
+; Change these variables for the system being dialed into
+; Last statement turns on capture for debugging purposes
+Assign USERNAME "Felix"
+Assign DLPATH   C:\TEMP2\
+Assign DIALNUM  3
+Assign SIZE     64k
+Assign TESTFILE test$SIZE.dat
+Assign PROTO    Y
+
+; Make sure these directories exist, QM won't create them!!
+Capture \DL\0122\$SIZE$PROTO$DIALNUM.CAP
+
+; logging isn't interesting
+; Log \DL\0919\$SIZE$PROTO$DIALNUM.LOG
+
+; Some of these options don't exist between QM 5.0 and 4.x
+Graphics ANSI
+TurnON   8_BIT
+TurnOFF  LINEFEED
+TurnOFF  XON/XOFF
+TurnOFF  NOISE
+; TurnOFF  MUSIC
+TurnON   SCROLL
+TurnOFF  PRINT
+TurnOFF  ECHO
+TurnOFF  SPLIT
+; TurnOFF  BS_DEL
+TurnON   STATUSLN
+TurnOFF  DOORWAY
+
+Delay 2000
+NOTE
+NOTE #### start_qmodem testsize:$SIZE proto:$PROTO $DATE $TIME
+
+; No point hanging around a long time if we catch an error
+; TimeOut  10 Hangup
+Timeout 30 ABORT
+
+GOTO START
+
+ABORT:
+; We don't know what state we're in, force a hangup and then try all over
+; again - try just exiting to DOS instead
+NOTE
+NOTE ### aborting $DATE $TIME, we cant login
+Hangup
+Delay 500
+System Y
+
+START:
+Send     "AT^M"
+Delay 2000
+
+; Send     "ATH0^M"  ; To make *sure* I'm not connected or already off-hook
+; Waitfor  "OK"
+; Delay 100
+; Send "AT^M"
+; Waitfor "OK"
+; Delay 1000
+
+; Using the dial directory takes care of re-dialing for us.
+; Unfortunately the dial directory does not tell us how many times it took
+; and will re-dial forever. It also hides our CONNECT string which is useful
+; signal to tell if we negotiate ARQ/MNP/V42/LAPM/etc.
+; Wildcat! will display the speed on connect however.
+;
+NOTE
+NOTE #### start_dial $DATE $TIME
+Dial     "$DIALNUM"       ; Dials entry #n in dialing directory
+NOTE
+NOTE #### connected $DATE $TIME
+
+; Noise/spurious text/bad handshake could cause us to munge the
+; username prompt, try again if we miss it.
+When     "NO CARRIER" ABORT
+Waitfor  "name?"
+When
+Delay 100
+
+; Send username and password. The dialing directory only holds the
+; password, so we have to manually put in our username here or the
+; the variable at the top of this file.
+;
+Send     "*$USERNAME $PASSWORD^M"
+
+; We logged in, now if we get lost or time out, just end the call without
+; any more attempts at recovery.
+When     "not found" ABORT
+Waitfor  "Main"
+When
+Timeout 30 ABORT2
+
+; idk, let the connection quiesce for a few seconds to ensure it's stable?
+NOTE ### sleep 10 seconds
+Delay 10000
+
+; This assumes 'expert' level commands are enabled in caller settings
+
+Waitfor  " ?"
+Delay 200
+Send     "F"
+
+Waitfor  "File"
+Delay 200
+
+Waitfor  " ?"
+Delay 200
+Send     "D"
+
+Waitfor  "File # 1"
+Delay 100
+Send "$TESTFILE^M"
+
+Waitfor  "File # 2"
+Delay 100
+Send "^M"
+
+Waitfor  "Automatically logoff"
+Delay 100
+Send     "Y"
+
+Waitfor  "Select"
+Delay 100
+Send     "$PROTO"
+
+NOTE
+NOTE ### start_download $DATE $TIME
+TIMEOUT 30 ABORTDL
+;
+; Make sure this test file is deleted between test runs!
+; Else zmodem will auto-recover and test is worthless
+;
+Download $PROTO c:\TEMP2\$TESTFILE
+
+NOTE
+NOTE ### end_download $DATE $TIME
+
+Waitfor  "Disconnecting"
+Delay 100
+Send     "H"
+
+NOTE
+NOTE #### end_call $DATE $TIME
+
+; Sometimes, somehow we get garbage after the download that aborts the
+; auto-logoff. Use a bigger hammer to log off.
+;
+; Normally we'd wait for NO CARRIER, but handle the case if we see the abort
+Timeout 40 ABORTBYE
+When     "NO CARRIER" DONE
+When     "logoff canceled" SIGNOFF
+Waitfor  "NO CARRIER"
+When
+
+SIGNOFF:
+Waitfor "to continue?"
+Delay 100
+Send    "^M"
+Waitfor " ?"
+Send    "G"
+
+Goto DONE
+
+; Different abort modes so we can better tell where we stopped
+ABORT2:
+NOTE
+NOTE ### aborting $DATE $TIME - abort2 we are lost
+Hangup
+Delay 100
+Hangup
+Goto DONE
+
+ABORTDL:
+NOTE
+NOTE ### aborting $DATE $TIME - abort during download
+Hangup
+Delay 100
+Hangup
+Goto DONE
+
+ABORTBYE:
+NOTE
+NOTE ### aborting $DATE $TIME - abort trying to say goodbye
+Hangup
+Delay 100
+Hangup
+Goto DONE
+
+; Collect post-call statistics from modems that support it
+DONE:
+NOTE
+NOTE ### stats_ati6 $DATE $TIME
+Send    "ATI6^M"
+When    "ERROR" "AT^M"
+When    "any key" "^M"
+Waitfor "OK"
+When
+NOTE
+NOTE ### end_stats_ati6
+
+NOTE
+NOTE ### stats_ati11 $DATE $TIME
+Send    "ATI11^M"
+When    "ERROR" "AT^M"
+When    "any key" "^M"
+Waitfor "OK"
+When
+NOTE
+NOTE ### end_stats_ati11
+
+QUIT:
+NOTE #### exit_qmodem $DATE $TIME
+System Y    ; Ends script and exits to DOS
