@@ -5,7 +5,16 @@
 Because the BBS and website run on different servers at different addresses,
 some people may try to telnet to the wrong address. The systemd service
 `tuxedocat-redirect` listens on port 2323 on the webserver and displays a
-message on where to go.
+simple message on where to go.
+
+Generally goes in `/etc/systemd/systemd` and `/usr/local/bin/`:
+```
+  /etc/systemd/system/tuxedocat-redirect@.service
+  /etc/systemd/system/tuxedocat-redirect.socket
+
+  /usr/local/bin/tuxedocat-redirect.sh
+```
+
 
 ```
 $ telnet tuxedocatbbs.com 2323
@@ -15,7 +24,7 @@ Escape character is '^]'.
 
 TuxedoCat Lounge BBS redirector
 You want bbs.tuxedocatbbs.com port 2323 instead.
-
+         ^^^
 Connection closed by foreign host.
 
 
@@ -26,6 +35,6 @@ Escape character is '^]'.
 
 TuxedoCat Lounge BBS redirector
 You want bbs.tuxedocatbbs.com port 2323 instead.
-
+         ^^^
 Connection closed by foreign host.
 ```
