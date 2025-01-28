@@ -21,3 +21,7 @@ and performing a UUCP transfer.
 
 These are the files on the Wildcat! side of things.
 
+### Qmodem call completion testing
+
+Used for evaluating modems and analog telephone adapters, a Qmodem script that calls the BBS over and over simulating
+a caller downloading a file.
