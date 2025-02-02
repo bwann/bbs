@@ -1,0 +1,8 @@
+[Unit]
+Description=TuxedoCat Lounge BBS redirector message
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/tuxedocat-redirect.sh
+StandardOutput=socket
+StandardError=journal

@@ -25,3 +25,7 @@ These are the files on the Wildcat! side of things.
 
 Used for evaluating modems and analog telephone adapters, a Qmodem script that calls the BBS over and over simulating
 a caller downloading a file.
+
+### www files
+
+Some stuff that runs on the webserver to assist with the BBS (no winserver here)

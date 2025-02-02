@@ -1,0 +1,9 @@
+[Unit]
+Description=TuxedoCat Lounge BBS redirect message
+
+[Socket]
+ListenStream=2323
+Accept=yes
+
+[Install]
+WantedBy=sockets.target
