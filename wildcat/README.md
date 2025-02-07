@@ -66,6 +66,10 @@ some Wildcat! hook scripts, some utility batch files.
 Files for configuring UUCP mail/newsgroup transfers using FX UUCICO,
 wcGate
 
+### modem/
+
+Some modem profile files used by the BBS, created/edited with wcMODEM
+
 ### wcpro/
 
 Some report and command macros for cleaning up the message database,
