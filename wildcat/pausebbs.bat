@@ -7,7 +7,7 @@ REM
 REM This frees us up to run things MAKEWILD and WCPACK to edit the BBS
 REM or work on databases.
 REM
-REM Won't disconnect current callers.
+REM This won't disconnect current callers, so wait or manually punt them off.
 REM
 REM Warning: this is not idempotent! It's going to take action
 REM one way or another each time it's run. Each run should re-set the
