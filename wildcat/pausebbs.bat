@@ -1,7 +1,12 @@
 @echo off
 
-REM Take the BBS down for maintenance, modems and telnet
-REM This frees us up to run MAKEWILD to edit the BBS.
+REM Take the BBS down for maintenance, modems and telnet. WC nodes are
+REM left running, but they busy out their modems and close database
+REM connections.
+REM
+REM This frees us up to run things MAKEWILD and WCPACK to edit the BBS
+REM or work on databases.
+REM
 REM Won't disconnect current callers.
 REM
 REM Warning: this is not idempotent! It's going to take action
@@ -24,7 +29,7 @@ RENAME wait.sem wait.se_
 
 echo Marking all nodes to wake up
 cd \wildcat
-wcnode 1-250 /w
+wcnode /a /w
 GOTO END
 
 :PAUSE
@@ -33,7 +38,7 @@ RENAME wait.se_ wait.sem
 
 echo Marking all nodes as in-maintenance
 cd \wildcat
-wcnode 1-250 /r
+wcnode /a /r
 GOTO END
 
 :END
