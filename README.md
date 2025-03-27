@@ -29,3 +29,7 @@ a caller downloading a file.
 ### www files
 
 Some stuff that runs on the webserver to assist with the BBS (no winserver here)
+
+### x25.md
+
+Cisco IOS configuration for simulating an X.25 PAD and connecting to the Telebahn retro X.25 network
